@@ -18,6 +18,7 @@ class AllCourseCard extends StatelessWidget {
         itemBuilder: (ctx, index) {
           return Card(
             elevation: 10,
+            shadowColor: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

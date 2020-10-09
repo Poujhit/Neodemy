@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 import './courses.dart';
 
@@ -12,7 +15,7 @@ class Courses with ChangeNotifier {
           'Don\'t limit the Usage of TypeScript to Angular! Learn the Basics, its Features, Workflows and how to use it!',
       id: DateTime.now().toString(),
       isEnrolled: false,
-      assignmentUrl: 'https//www.udemy.com',
+      assignmentUrl: 'https://miro.medium.com/max/875/0*-7un2ZnPbuMp0gAE.jpg',
       ratings: '4.7',
       courseContent: [
         {
@@ -98,6 +101,49 @@ class Courses with ChangeNotifier {
       isEnrolled: false,
       assignmentUrl: 'https//www.udemy.com',
       ratings: '4.4',
+      courseContent: [
+        {
+          'title': 'Welcome to the course',
+          'minutes': 12,
+          'videoUrl': 'now nothing',
+          'isWatched': false,
+        },
+        {
+          'title': 'vid 1',
+          'minutes': 10,
+          'videoUrl': 'now nothing',
+          'isWatched': false,
+        },
+        {
+          'title': 'vid2',
+          'minutes': 9,
+          'videoUrl': 'now nothing',
+          'isWatched': false,
+        },
+        {
+          'title': 'vid 3',
+          'minutes': 8,
+          'videoUrl': 'now nothing',
+          'isWatched': false,
+        },
+        {
+          'title': 'vid4',
+          'minutes': 7,
+          'videoUrl': 'now nothing',
+          'isWatched': false,
+        },
+      ],
+    ),
+    Course(
+      coursename: 'Adobe premier',
+      duration: 10,
+      imageUrl: 'assets/images/four.png',
+      overview:
+          'lalala surviva lalala survivalalala survivalalala survivavvvlalala survivalalala survivalalala survivalalala survivavlalala survivalalala survivavlalala survivav',
+      id: DateTime.now().toString(),
+      isEnrolled: false,
+      assignmentUrl: 'https//www.udemy.com',
+      ratings: '4.0',
       courseContent: [
         {
           'title': 'Welcome to the course',
