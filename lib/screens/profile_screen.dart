@@ -1,6 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:elearn_app/models/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './view_all_mycourse_screen.dart';
 import '../widgets/title_header.dart';
@@ -31,6 +34,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final courseData = Provider.of<Courses>(context, listen: false);
+    final userInfo = Provider.of<Auth>(context);
     print(courseData.myCourses.length);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -74,8 +78,8 @@ class ProfileScreen extends StatelessWidget {
                   // backgroundImage: AssetImage(
                   //   'assets/images/logo.png',
                   // ),
-                  child: Image.asset(
-                    'assets/images/logo.png',
+                  child: Image.network(
+                    userInfo.profileUrl,
                     height: 55,
                   ),
                   backgroundColor: Colors.transparent,
@@ -87,15 +91,162 @@ class ProfileScreen extends StatelessWidget {
               height: 10,
             ),
             Text(
-              'username',
+              userInfo.userName,
               style: Theme.of(context).textTheme.headline1,
             ),
             SizedBox(
               height: 10,
             ),
             RaisedButton(
-              onPressed: () {
+              onPressed: () async {
                 //implmentation of reward system.
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                if (pref.containsKey('rewards')) {
+                  showGeneralDialog(
+                      barrierDismissible: true,
+                      barrierLabel: 'lalala',
+                      context: context,
+                      pageBuilder: (ctx, _, __) {
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                margin: const EdgeInsets.all(15),
+                                child: Text(
+                                  '${pref.getInt('rewards')} points!! Keep Learning.',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Divider(thickness: 1),
+                              GestureDetector(
+                                onTap: () => Navigator.of(ctx).pop(),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                          bottom: 5,
+                                        ),
+                                        child: FlatButton(
+                                          onPressed: () async {
+                                            await Share.share(
+                                                'I have earned ${pref.getInt('rewards')} Points by learning in Neodemy App.');
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: AutoSizeText(
+                                            'Share Your Achievement',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                            ),
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                          bottom: 5,
+                                        ),
+                                        child: FlatButton(
+                                          onPressed: () => Navigator.of(ctx).pop(),
+                                          child: Text(
+                                            'OK',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      });
+                } else
+                  showGeneralDialog(
+                      barrierDismissible: true,
+                      barrierLabel: 'lalala',
+                      context: context,
+                      pageBuilder: (ctx, _, __) {
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                margin: const EdgeInsets.all(15),
+                                child: Text(
+                                  'Enroll in some courses to gain points.',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Divider(thickness: 1),
+                              GestureDetector(
+                                onTap: () => Navigator.of(ctx).pop(),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                          bottom: 5,
+                                        ),
+                                        child: FlatButton(
+                                          onPressed: () => Navigator.of(ctx).pop(),
+                                          child: Text(
+                                            'OK',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      });
               },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),

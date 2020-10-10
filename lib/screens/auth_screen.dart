@@ -1,7 +1,30 @@
+import 'package:elearn_app/exception/https_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/auth.dart';
 
 class AuthScreen extends StatelessWidget {
+  void _showErrorDialog(String message, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('An Error Occurred!'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Okay'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,8 +88,16 @@ class AuthScreen extends StatelessWidget {
               ),
               color: Colors.white,
               elevation: 3,
-              onPressed: () {
+              onPressed: () async {
                 //implement login feature.
+                try {
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  prefs.setString('userId', 'done');
+                  await Provider.of<Auth>(context, listen: false).authenticate();
+                } catch (error) {
+                  var errormessage = 'Authentication failed - $error';
+                  _showErrorDialog(errormessage, context);
+                }
               },
               child: Row(
                 children: [

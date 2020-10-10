@@ -1,4 +1,6 @@
+import 'package:elearn_app/models/auth.dart';
 import 'package:elearn_app/screens/course_content_screen.dart';
+import 'package:elearn_app/widgets/category1.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,8 +14,16 @@ import './view_allcourses_screem.dart';
 import './profile_screen.dart';
 import '../widgets/title_header.dart';
 
-class HomeUi extends StatelessWidget {
+class HomeUi extends StatefulWidget {
+  @override
+  _HomeUiState createState() => _HomeUiState();
+}
+
+class _HomeUiState extends State<HomeUi> {
   final String name = 'home';
+  var _isInit = true;
+  var _isLoading = false;
+  Future<dynamic> _fun;
 
   Route _createRoute(Widget page) {
     return PageRouteBuilder(
@@ -33,8 +43,28 @@ class HomeUi extends StatelessWidget {
   }
 
   @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      _fun = Provider.of<Courses>(
+        context,
+      ).loadmycourse();
+      Provider.of<Courses>(context, listen: false).fetchAndSetCourses().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final courseData = Provider.of<Courses>(context);
+    final userInfo = Provider.of<Auth>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -55,41 +85,52 @@ class HomeUi extends StatelessWidget {
             SizedBox(
               height: 17,
             ),
-            courseData.myCourses.isEmpty
-                ? Text('')
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TitleHeader(
-                        'My Courses',
-                        () => Navigator.push(
-                          context,
-                          _createRoute(
-                            ViewAllMyCourseScreen(),
+            FutureBuilder(
+              future: _fun,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data)
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TitleHeader(
+                          'My Courses',
+                          () => Navigator.push(
+                            context,
+                            _createRoute(
+                              ViewAllMyCourseScreen(),
+                            ),
                           ),
+                          true,
                         ),
-                        true,
-                      ),
-                      SizedBox(
-                        height: 7,
-                      ),
-                      MyCourseCards(),
-                      SizedBox(
-                        height: 27,
-                      ),
-                    ],
-                  ),
-            TitleHeader(
-              'Courses',
-              () => Navigator.push(
-                context,
-                _createRoute(
-                  ViewAllCourseScreen(),
-                ),
-              ),
-              true,
+                        SizedBox(
+                          height: 7,
+                        ),
+                        MyCourseCards(),
+                        SizedBox(
+                          height: 27,
+                        ),
+                      ],
+                    );
+                  else
+                    return Text('');
+                } else
+                  return Text('');
+              },
             ),
+            _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : TitleHeader(
+                    'Courses',
+                    () => Navigator.push(
+                      context,
+                      _createRoute(
+                        ViewAllCourseScreen(),
+                      ),
+                    ),
+                    true,
+                  ),
             SizedBox(
               height: 7,
             ),
@@ -97,10 +138,81 @@ class HomeUi extends StatelessWidget {
             SizedBox(
               height: 27,
             ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) => CourseContentScreen()));
-              },
+            _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : TitleHeader(
+                    'Economics Courses',
+                    () => Navigator.push(
+                      context,
+                      _createRoute(
+                        ViewAllCourseScreen(),
+                      ),
+                    ),
+                    true,
+                  ),
+            SizedBox(
+              height: 7,
+            ),
+            Category1(),
+            SizedBox(
+              height: 27,
+            ),
+            _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : TitleHeader(
+                    'Psychology Courses',
+                    () => Navigator.push(
+                      context,
+                      _createRoute(
+                        ViewAllCourseScreen(),
+                      ),
+                    ),
+                    true,
+                  ),
+            SizedBox(
+              height: 7,
+            ),
+            Category2(),
+            SizedBox(
+              height: 27,
+            ),
+            _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : TitleHeader(
+                    'Programming Courses',
+                    () => Navigator.push(
+                      context,
+                      _createRoute(
+                        ViewAllCourseScreen(),
+                      ),
+                    ),
+                    true,
+                  ),
+            SizedBox(
+              height: 7,
+            ),
+            Category3(),
+            SizedBox(
+              height: 27,
+            ),
+            _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : TitleHeader(
+                    'Programming Courses',
+                    () => Navigator.push(
+                      context,
+                      _createRoute(
+                        ViewAllCourseScreen(),
+                      ),
+                    ),
+                    true,
+                  ),
+            SizedBox(
+              height: 7,
+            ),
+            Category4(),
+            SizedBox(
+              height: 27,
             ),
           ],
         ),
@@ -126,8 +238,8 @@ class HomeUi extends StatelessWidget {
         child: Container(
           width: 35,
           height: 35,
-          child: Image.asset(
-            'assets/images/logo.png',
+          child: Image.network(
+            userInfo.profileUrl,
             fit: BoxFit.contain,
           ),
         ),

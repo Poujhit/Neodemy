@@ -29,7 +29,7 @@ class ViewAllCourseScreen extends StatelessWidget {
                         Expanded(
                           child: Container(
                             alignment: Alignment.center,
-                            child: Image.asset(
+                            child: Image.network(
                               _courses.courseData[index].imageUrl,
                               fit: BoxFit.cover,
                             ),

@@ -27,11 +27,15 @@ dependencies:
   connectivity: ^0.4.9+3
   cupertino_icons: ^1.0.0
   firebase_analytics: ^6.0.2
+  firebase_auth: ^0.18.1+2
   firebase_core: ^0.5.0+1
+  fluttertoast: ^7.1.1
   google_sign_in: ^4.5.4
   http: ^0.12.2
   provider: ^4.3.2+2
   share: ^0.6.5+2
+  shared_preferences: ^0.5.12
+  youtube_player_flutter: ^7.0.0+7
 
 dev_dependencies:
   flutter_test:

@@ -6,8 +6,9 @@ class Course {
   final int duration;
   final String imageUrl;
   final String overview;
+  final String category;
   bool isEnrolled;
-  final List<Map<String, dynamic>> courseContent;
+  final List<dynamic> courseContent;
   final String assignmentUrl;
 
   Course({
@@ -16,6 +17,7 @@ class Course {
     this.coursename,
     this.duration,
     this.id,
+    this.category,
     this.imageUrl,
     this.isEnrolled,
     this.overview,

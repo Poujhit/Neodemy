@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class TitleHeader extends StatelessWidget {
@@ -14,9 +15,10 @@ class TitleHeader extends StatelessWidget {
         Expanded(
           child: Container(
             margin: EdgeInsets.only(left: 24),
-            child: Text(
+            child: AutoSizeText(
               title,
               style: Theme.of(context).textTheme.headline1,
+              maxLines: 1,
             ),
           ),
         ),
