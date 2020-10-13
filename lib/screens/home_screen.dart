@@ -1,6 +1,5 @@
 import 'package:elearn_app/models/auth.dart';
-import 'package:elearn_app/screens/course_content_screen.dart';
-import 'package:elearn_app/widgets/category1.dart';
+import 'package:elearn_app/widgets/all_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

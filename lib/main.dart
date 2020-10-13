@@ -1,5 +1,3 @@
-import 'package:elearn_app/screens/course_content_screen.dart';
-import 'package:elearn_app/screens/video_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -10,6 +8,8 @@ import './models/course_provider.dart';
 import './models/auth.dart';
 import './screens/auth_screen.dart';
 import './screens/loading_screen.dart';
+import './screens/course_content_screen.dart';
+import './screens/video_screen.dart';
 
 FirebaseAnalytics firebaseAnalytics;
 

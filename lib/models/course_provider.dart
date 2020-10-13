@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import './courses.dart';
 
@@ -20,13 +19,12 @@ class Courses with ChangeNotifier {
   }
 
   Future<bool> loadmycourse() async {
-    final url = 'https://neodemy-app.firebaseio.com/allusers/$userId/enrolledCourses.json';
+    final url = 'https://........./allusers/$userId/enrolledCourses.json';
     try {
       final response = await http.get(url);
-      if (response.statusCode == 404) return false; //false;
+      if (response.statusCode == 404) return false;
       final data = json.decode(response.body) as Map<String, dynamic>;
       data.forEach((key, value) {
-        print(value['coursename']);
         _myCourses.insert(
           0,
           Course(
@@ -41,7 +39,7 @@ class Courses with ChangeNotifier {
           ),
         );
       });
-      print(_myCourses);
+
       notifyListeners();
       return true;
     } catch (error) {
@@ -51,7 +49,7 @@ class Courses with ChangeNotifier {
   }
 
   Future<void> fetchAndSetCourses() async {
-    final url = 'https://neodemy-app.firebaseio.com/allCourses/.json';
+    final url = 'https://.........../allCourses/.json';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -83,16 +81,14 @@ class Courses with ChangeNotifier {
   }
 
   Future<void> setRewards(int points) async {
-    var url = 'https://neodemy-app.firebaseio.com/allusers/$userId.json';
+    var url = 'https://........../allusers/$userId.json';
     await http.patch(url, body: json.encode({'reward': points}));
   }
 
   Future<void> enrollCourse(String courseId) async {
-    var url = 'https://neodemy-app.firebaseio.com/allusers/$userId/enrolledCourses.json';
+    var url = 'https://............./allusers/$userId/enrolledCourses.json';
     try {
       final enrolledCourse = findById(courseId);
-
-      //final response = await http.get('https://neodemy-app.firebaseio.com/allusers/$userId.json');
 
       await http.post(url,
           body: json.encode({

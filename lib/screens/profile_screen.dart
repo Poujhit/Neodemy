@@ -76,9 +76,6 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(55),
                 ),
                 child: CircleAvatar(
-                  // backgroundImage: AssetImage(
-                  //   'assets/images/logo.png',
-                  // ),
                   child: Image.network(
                     userInfo.profileUrl,
                     height: 55,
@@ -288,7 +285,6 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            //https://drive.google.com/drive/u/5/folders/1Z9CBxsJ3Jzls4XCmAKxIeJ4Mg_6xALfI
             Container(
               margin: EdgeInsets.all(15),
               child: Column(
@@ -311,7 +307,7 @@ class ProfileScreen extends StatelessWidget {
                     subtitle: Text('Share it with your friends or anyone who wants to learn online'),
                     onTap: () async {
                       await Share.share(
-                        'https://drive.google.com/drive/u/5/folders/1Z9CBxsJ3Jzls4XCmAKxIeJ4Mg_6xALfI',
+                        'https://..................../u/5/folders/1Z9CBxsJ3Jzls4XCmAKxIeJ4Mg_6xALfI',
                         subject: 'A Learning App',
                       );
                     },
@@ -323,7 +319,6 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             SizedBox(
               height: 30,
             ),

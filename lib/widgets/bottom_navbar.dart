@@ -1,5 +1,4 @@
 import 'package:elearn_app/screens/about_screen.dart';
-import 'package:elearn_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatelessWidget {

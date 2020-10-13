@@ -1,4 +1,3 @@
-import 'package:elearn_app/exception/https_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
