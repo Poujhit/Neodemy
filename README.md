@@ -14,7 +14,7 @@
 ## Usage
 
 ```sh
-Just add the lib files to a new flutter project and include the external packages in pubspec.yaml
+Just clone the repository and use the command flutter run
 ```
 
 ## Author
@@ -28,5 +28,3 @@ Just add the lib files to a new flutter project and include the external package
 
 Give a ⭐️ if this project helped you!
 
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
