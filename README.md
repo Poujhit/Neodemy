@@ -9,7 +9,7 @@
   </a>
 </p>
 
-> An E-Learning Android App with a reward System.
+> An E-Learning Android App with a reward System made using Flutter.
 
 ## Usage
 
