@@ -198,7 +198,7 @@ class _HomeUiState extends State<HomeUi> {
             _isLoading
                 ? Center(child: CircularProgressIndicator())
                 : TitleHeader(
-                    'Programming Courses',
+                    'Socialogy Courses',
                     () => Navigator.push(
                       context,
                       _createRoute(

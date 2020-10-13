@@ -97,6 +97,9 @@ class Auth with ChangeNotifier {
   }
 
   void signOut() {
+    SharedPreferences.getInstance().then((value) => value.clear().then((value) => value == true
+        ? Fluttertoast.showToast(msg: 'User Credentials cleared')
+        : Fluttertoast.showToast(msg: 'error')));
     googleSignIn.signOut();
   }
 }

@@ -8,7 +8,7 @@ class Course {
   final String overview;
   final String category;
   bool isEnrolled;
-  final List<dynamic> courseContent;
+  List<dynamic> courseContent;
   final String assignmentUrl;
 
   Course({

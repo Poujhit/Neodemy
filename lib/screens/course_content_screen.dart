@@ -158,12 +158,12 @@ class _CourseContentScreenState extends State<CourseContentScreen> {
                             elevation: 3,
                             onPressed: () async {
                               SharedPreferences pref = await SharedPreferences.getInstance();
+
+                              await Provider.of<Courses>(context, listen: false).enrollCourse(courseId);
                               pref.setString(course.id, 'pikachu');
                               setState(() {
                                 p = pref.getString(course.id);
                               });
-                              await Provider.of<Courses>(context, listen: false).enrollCourse(courseId);
-
                               showGeneralDialog(
                                   barrierDismissible: true,
                                   barrierLabel: 'lalala',

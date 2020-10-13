@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:elearn_app/models/course_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -139,7 +140,8 @@ class _VideoScreenState extends State<VideoScreen> {
           setState(() {
             _playerState = PlayerState.ended;
           });
-          Navigator.of(context).pop();
+          Future.delayed(Duration(seconds: 10)).then((value) => Navigator.of(context).pop());
+          Fluttertoast.showToast(msg: 'Copy your notes, coz in 10 secs this page will be closed.');
         },
       ),
       builder: (ctx, player) {

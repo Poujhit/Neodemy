@@ -10,6 +10,7 @@ import '../widgets/title_header.dart';
 import '../widgets/my_courses_cards.dart';
 import '../widgets/bottom_navbar.dart';
 import '../models/course_provider.dart';
+import '../models/auth.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String name = 'profile';
@@ -337,7 +338,7 @@ class ProfileScreen extends StatelessWidget {
                 color: Colors.white,
                 elevation: 3,
                 onPressed: () {
-                  //implement logout feature.
+                  Provider.of<Auth>(context, listen: false).signOut();
                   Navigator.of(context).pop('signnout');
                 },
                 child: Text(
