@@ -33,6 +33,9 @@
 .pub/
 /build/
 android/
+web/
+ios/
+windows/
 
 
 
