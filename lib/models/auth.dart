@@ -69,7 +69,7 @@ class Auth with ChangeNotifier {
         print(user);
         notifyListeners();
 
-        var url = 'https://........../allusers/${user.uid}.json';
+        var url = 'https://neodemy-app.firebaseio.com/allusers/${user.uid}.json';
         try {
           var response = await http.put(url,
               body: json.encode({
