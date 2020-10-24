@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:elearn_app/web_files/main_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +12,10 @@ import './screens/auth_screen.dart';
 import './screens/loading_screen.dart';
 import './screens/course_content_screen.dart';
 import './screens/video_screen.dart';
-import './web/web_screen/main_web.dart';
 
 FirebaseAnalytics firebaseAnalytics;
 
-//for building the apk run flutter build apk --split-per-abi
+//for building the apk run flutter build apk --split-per-abi  while building the app for android, remove everything related to web
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,11 +40,11 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ],
-      child: Consumer<Auth>(builder: (ctx, auth, _) {
-        print(auth.isAuth);
-        return kIsWeb
-            ? WebMainScreen()
-            : MaterialApp(
+      child: kIsWeb
+          ? WebMainScreen()
+          : Consumer<Auth>(builder: (ctx, auth, _) {
+              print(auth.isAuth);
+              return MaterialApp(
                 title: 'Neodemy',
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
@@ -99,7 +97,7 @@ class MyApp extends StatelessWidget {
                   '/videoScreen': (ctx) => VideoScreen(),
                 },
               );
-      }),
+            }),
     );
   }
 }

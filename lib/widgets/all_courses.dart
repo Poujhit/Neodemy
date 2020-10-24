@@ -28,9 +28,12 @@ class AllCourseCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Image.network(
-                      _courses.courseData[index].imageUrl,
-                      fit: BoxFit.cover,
+                    child: Hero(
+                      tag: _courses.courseData[index].id,
+                      child: Image.network(
+                        _courses.courseData[index].imageUrl,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Expanded(
