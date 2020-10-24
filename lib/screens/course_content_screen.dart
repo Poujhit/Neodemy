@@ -57,21 +57,24 @@ class _CourseContentScreenState extends State<CourseContentScreen> {
                 background: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.network(
-                      course.imageUrl,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
+                    Hero(
+                      tag: course.id,
+                      child: Image.network(
+                        course.imageUrl,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
 
-                        return Center(
-                          child: CircularProgressIndicator(
-                            backgroundColor: Colors.blue,
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
-                                : null,
-                          ),
-                        );
-                      },
+                          return Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.blue,
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                                  : null,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
