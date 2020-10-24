@@ -237,9 +237,12 @@ class _HomeUiState extends State<HomeUi> {
         child: Container(
           width: 35,
           height: 35,
-          child: Image.network(
-            userInfo.profileUrl,
-            fit: BoxFit.contain,
+          child: Hero(
+            tag: 'profile',
+            child: Image.network(
+              userInfo.profileUrl,
+              fit: BoxFit.contain,
+            ),
           ),
         ),
       ),

@@ -15,7 +15,7 @@ import './screens/video_screen.dart';
 
 FirebaseAnalytics firebaseAnalytics;
 
-//for building the apk run flutter build apk --split-per-abi  while building the app for android, remove everything related to web
+//for building the apk run flutter build apk --split-per-abi
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

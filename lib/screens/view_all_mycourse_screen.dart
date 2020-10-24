@@ -27,59 +27,65 @@ class ViewAllMyCourseScreen extends StatelessWidget {
                 (BuildContext context, int index) {
                   i++;
                   if (i == 2) i = 0;
-                  return Container(
-                    width: 150,
-                    height: 150,
-                    child: Card(
-                      elevation: 10,
-                      shadowColor: Colors.white,
-                      color: _colors[i],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                              top: 11,
-                              left: 2,
+                  return GestureDetector(
+                    onTap: () => Navigator.of(context).pushNamed(
+                      '/coursecontent',
+                      arguments: courseData.courseData[index].id,
+                    ),
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      child: Card(
+                        elevation: 10,
+                        shadowColor: Colors.white,
+                        color: _colors[i],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                top: 11,
+                                left: 2,
+                              ),
+                              child: Text(
+                                courseData.myCourses[index].coursename,
+                                style: Theme.of(context).textTheme.headline3,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                            child: Text(
-                              courseData.myCourses[index].coursename,
-                              style: Theme.of(context).textTheme.headline3,
-                              textAlign: TextAlign.center,
+                            SizedBox(
+                              height: 20,
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                    left: 5,
-                                  ),
-                                  child: Icon(
-                                    Icons.alarm,
-                                    color: Colors.white,
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(
+                                      left: 5,
+                                    ),
+                                    child: Icon(
+                                      Icons.alarm,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Text(
-                                  '${courseData.myCourses[index].duration} Hours Course',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
+                                Expanded(
+                                  flex: 3,
+                                  child: Text(
+                                    '${courseData.myCourses[index].duration} Hours Course',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
-                        ],
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   );

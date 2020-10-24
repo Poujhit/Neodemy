@@ -20,50 +20,59 @@ class ViewAllCourseScreen extends StatelessWidget {
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return Card(
-                    elevation: 10,
-                    shadowColor: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Image.network(
-                              _courses.courseData[index].imageUrl,
-                              fit: BoxFit.cover,
+                  return GestureDetector(
+                    onTap: () => Navigator.of(context).pushNamed(
+                      '/coursecontent',
+                      arguments: _courses.courseData[index].id,
+                    ),
+                    child: Card(
+                      elevation: 10,
+                      shadowColor: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Hero(
+                                tag: _courses.courseData[index].id,
+                                child: Image.network(
+                                  _courses.courseData[index].imageUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              left: 10,
-                              top: 5,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: AutoSizeText(
-                                    _courses.courseData[index].coursename,
-                                    maxLines: 3,
-                                    style: Theme.of(context).textTheme.subtitle1,
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                left: 10,
+                                top: 5,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                    child: AutoSizeText(
+                                      _courses.courseData[index].coursename,
+                                      maxLines: 3,
+                                      style: Theme.of(context).textTheme.subtitle1,
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    'Ratings - ${_courses.courseData[index].ratings}',
-                                    maxLines: 3,
-                                    style: Theme.of(context).textTheme.subtitle2,
+                                  Expanded(
+                                    child: AutoSizeText(
+                                      'Ratings - ${_courses.courseData[index].ratings}',
+                                      maxLines: 3,
+                                      style: Theme.of(context).textTheme.subtitle2,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },
