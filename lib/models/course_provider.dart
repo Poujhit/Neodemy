@@ -19,7 +19,7 @@ class Courses with ChangeNotifier {
   }
 
   Future<bool> loadmycourse() async {
-    final url = 'https://........./allusers/$userId/enrolledCourses.json';
+    final url = 'https://neodemy-app.firebaseio.com/allusers/$userId/enrolledCourses.json';
     try {
       final response = await http.get(url);
       if (response.statusCode == 404) return false;
@@ -49,7 +49,7 @@ class Courses with ChangeNotifier {
   }
 
   Future<void> fetchAndSetCourses() async {
-    final url = 'https://.........../allCourses/.json';
+    final url = 'https://neodemy-app.firebaseio.com/allCourses.json';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -81,12 +81,12 @@ class Courses with ChangeNotifier {
   }
 
   Future<void> setRewards(int points) async {
-    var url = 'https://........../allusers/$userId.json';
+    var url = 'https://neodemy-app.firebaseio.com/allusers/$userId.json';
     await http.patch(url, body: json.encode({'reward': points}));
   }
 
   Future<void> enrollCourse(String courseId) async {
-    var url = 'https://............./allusers/$userId/enrolledCourses.json';
+    var url = 'https://neodemy-app.firebaseio.com/allusers/$userId/enrolledCourses.json';
     try {
       final enrolledCourse = findById(courseId);
 

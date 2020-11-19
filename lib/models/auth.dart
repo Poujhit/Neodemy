@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:connectivity/connectivity.dart';
 
@@ -89,10 +90,12 @@ class Auth with ChangeNotifier {
       Fluttertoast.showToast(msg: 'Turn on Mobile data or Wifi.', toastLength: Toast.LENGTH_SHORT);
   }
 
-  void signOut() {
-    SharedPreferences.getInstance().then((value) => value.clear().then((value) => value == true
-        ? Fluttertoast.showToast(msg: 'User Credentials cleared')
-        : Fluttertoast.showToast(msg: 'error')));
-    googleSignIn.signOut();
+  Future<void> signOut() async {
+    //await googleSignIn.signOut();
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var checklogout = await pref.clear();
+    checklogout ? Fluttertoast.showToast(msg: 'User Credentials cleared') : Fluttertoast.showToast(msg: 'error');
+
+    await googleSignIn.disconnect();
   }
 }
