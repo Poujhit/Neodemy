@@ -11,7 +11,7 @@
   </a>
 </p>
 
-> An E-Learning Android App with a reward System made using Flutter.
+> An E-Learning Android App with a reward System made using Flutter SDK.
 
 ## Usage
 
