@@ -1,8 +1,8 @@
 import 'package:elearn_app/models/auth.dart';
 import 'package:elearn_app/widgets/all_category.dart';
+import 'package:elearn_app/widgets/reward_info.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/bottom_navbar.dart';
 import '../models/course_provider.dart';
 import '../widgets/my_courses_cards.dart';
@@ -81,9 +81,7 @@ class _HomeUiState extends State<HomeUi> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 17,
-            ),
+            RewardInfoWidget(),
             FutureBuilder(
               future: _fun,
               builder: (context, snapshot) {
@@ -147,7 +145,7 @@ class _HomeUiState extends State<HomeUi> {
                         ViewAllCourseScreen(),
                       ),
                     ),
-                    true,
+                    false,
                   ),
             SizedBox(
               height: 7,
@@ -166,7 +164,7 @@ class _HomeUiState extends State<HomeUi> {
                         ViewAllCourseScreen(),
                       ),
                     ),
-                    true,
+                    false,
                   ),
             SizedBox(
               height: 7,
@@ -185,7 +183,7 @@ class _HomeUiState extends State<HomeUi> {
                         ViewAllCourseScreen(),
                       ),
                     ),
-                    true,
+                    false,
                   ),
             SizedBox(
               height: 7,
@@ -204,7 +202,7 @@ class _HomeUiState extends State<HomeUi> {
                         ViewAllCourseScreen(),
                       ),
                     ),
-                    true,
+                    false,
                   ),
             SizedBox(
               height: 7,
@@ -237,12 +235,9 @@ class _HomeUiState extends State<HomeUi> {
         child: Container(
           width: 35,
           height: 35,
-          child: Hero(
-            tag: 'profile',
-            child: Image.network(
-              userInfo.profileUrl,
-              fit: BoxFit.contain,
-            ),
+          child: Image.network(
+            userInfo.profileUrl,
+            fit: BoxFit.contain,
           ),
         ),
       ),

@@ -16,13 +16,13 @@ class VideoScreen extends StatefulWidget {
 class _VideoScreenState extends State<VideoScreen> {
   var videoDetails;
   YoutubePlayerController _controller;
+  // ignore: unused_field
   PlayerState _playerState;
   var _isInit = false;
   final textcontroller = TextEditingController();
 
+  // ignore: unused_field
   YoutubeMetaData _videoMetaData;
-  double _volume = 100;
-  bool _muted = false;
 
   bool _isPlayerReady = false;
 
@@ -85,8 +85,6 @@ class _VideoScreenState extends State<VideoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(videoDetails);
-
     return YoutubePlayerBuilder(
       onExitFullScreen: () {
         // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
@@ -115,9 +113,7 @@ class _VideoScreenState extends State<VideoScreen> {
               color: Colors.white,
               size: 25.0,
             ),
-            onPressed: () {
-              print('Settings Tapped!');
-            },
+            onPressed: null,
           ),
         ],
         onReady: () {
@@ -130,11 +126,9 @@ class _VideoScreenState extends State<VideoScreen> {
             pref.setInt('rewards', pref.getInt('rewards') + 10);
 
             Provider.of<Courses>(context, listen: false).setRewards(pref.getInt('rewards'));
-            print(pref.getInt('rewards'));
           } else {
             pref.setInt('rewards', 10);
             Provider.of<Courses>(context, listen: false).setRewards(pref.getInt('rewards'));
-            print(pref.getInt('rewards'));
           }
 
           setState(() {

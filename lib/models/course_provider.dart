@@ -10,13 +10,10 @@ class Courses with ChangeNotifier {
   List<Course> _myCourses = [];
 
   String userId;
-  //int numberen;
+
   Courses(this.userId, this._courseData);
 
-  List<Course> get myCourses {
-    print(_myCourses);
-    return [..._myCourses];
-  }
+  List<Course> get myCourses => [..._myCourses];
 
   Future<bool> loadmycourse() async {
     final url = 'https://neodemy-app.firebaseio.com/allusers/$userId/enrolledCourses.json';
@@ -114,9 +111,7 @@ class Courses with ChangeNotifier {
     return _courseData.firstWhere((course) => course.id == id);
   }
 
-  List<Course> get courseData {
-    return [..._courseData];
-  }
+  List<Course> get courseData => [..._courseData];
 
   void setasMycourse(Course c) {
     if (c.isEnrolled) {

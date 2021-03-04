@@ -68,7 +68,7 @@ class Category1 extends StatelessWidget {
               ),
             );
           else
-            return Text('');
+            return Container();
         },
       ),
     );

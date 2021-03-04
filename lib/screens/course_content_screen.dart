@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:velocity_x/velocity_x.dart' show VxToast;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/course_provider.dart';
@@ -150,9 +151,9 @@ class _CourseContentScreenState extends State<CourseContentScreen> {
                   p != null
                       ? Text('')
                       : Container(
-                          //alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width * 0.30,
                           height: 40,
+                          // ignore: deprecated_member_use
                           child: RaisedButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0),
@@ -160,6 +161,10 @@ class _CourseContentScreenState extends State<CourseContentScreen> {
                             color: Colors.white,
                             elevation: 3,
                             onPressed: () async {
+                              var closeLoading = VxToast.showLoading(
+                                context,
+                                msg: 'Enrolling...',
+                              );
                               SharedPreferences pref = await SharedPreferences.getInstance();
 
                               await Provider.of<Courses>(context, listen: false).enrollCourse(courseId);
@@ -167,6 +172,7 @@ class _CourseContentScreenState extends State<CourseContentScreen> {
                               setState(() {
                                 p = pref.getString(course.id);
                               });
+                              closeLoading();
                               showGeneralDialog(
                                   barrierDismissible: true,
                                   barrierLabel: 'lalala',
@@ -207,7 +213,10 @@ class _CourseContentScreenState extends State<CourseContentScreen> {
                                                     margin: EdgeInsets.only(
                                                       bottom: 5,
                                                     ),
-                                                    child: FlatButton(
+                                                    child: TextButton(
+                                                      style: TextButton.styleFrom(
+                                                        primary: Colors.white,
+                                                      ),
                                                       onPressed: () => Navigator.of(ctx).pop(),
                                                       child: Text(
                                                         'OK',

@@ -10,7 +10,7 @@ class LoadingScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'Welcome',
+          'Welcome!!',
           style: Theme.of(context).textTheme.headline1,
         ),
       ),

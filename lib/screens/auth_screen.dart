@@ -13,7 +13,7 @@ class AuthScreen extends StatelessWidget {
         title: Text('An Error Occurred!'),
         content: Text(message),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text('Okay'),
             onPressed: () {
               Navigator.of(ctx).pop();
@@ -81,6 +81,7 @@ class AuthScreen extends StatelessWidget {
             //alignment: Alignment.center,
             width: MediaQuery.of(context).size.width * 0.70,
             height: 50,
+            // ignore: deprecated_member_use
             child: RaisedButton(
               shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(30.0),

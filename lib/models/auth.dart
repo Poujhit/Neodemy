@@ -19,23 +19,17 @@ class Auth with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  bool get isAuth {
-    print(userId);
-    return userId != null;
-  }
+  bool get isAuth => userId != null;
 
   Future<bool> autoLogin() async {
     SharedPreferences s = await SharedPreferences.getInstance();
     if (!s.containsKey('user') && !s.containsKey('pu')) {
-      var p = s.getString('user');
-      print('1:$p');
+      //pu stands for photo url of the user.
       return false;
     }
     userId = s.getString('user');
     profileUrl = s.getString('pu');
     userName = s.getString('name');
-    print(s.getString('user'));
-    print(s.getString('pu'));
     notifyListeners();
     return true;
   }
@@ -52,8 +46,7 @@ class Auth with ChangeNotifier {
           idToken: gs.idToken,
           accessToken: gs.accessToken,
         );
-
-        UserCredential result = await _auth.signInWithCredential(credential);
+        await _auth.signInWithCredential(credential);
 
         User user = _auth.currentUser;
         SharedPreferences pref = await SharedPreferences.getInstance();
@@ -66,22 +59,20 @@ class Auth with ChangeNotifier {
         pref.setString('name', user.displayName);
         userName = pref.getString('name');
         token = user.uid;
-
-        print(user);
         notifyListeners();
 
         var url = 'https://neodemy-app.firebaseio.com/allusers/${user.uid}.json';
         try {
-          var response = await http.put(url,
+          await http.put(url,
               body: json.encode({
                 'userEmail': user.email,
                 'userId': user.uid,
                 'profileUrl': user.photoURL,
                 'name': user.displayName,
-              })); //patch is for appending the data, put is for putting new data with custom name.
+              }));
+          //patch is for appending the data, put is for putting new data with custom name.
 
         } catch (error) {
-          print(error);
           Fluttertoast.showToast(msg: 'Server Problem. Please try again later.', toastLength: Toast.LENGTH_SHORT);
         }
       } else

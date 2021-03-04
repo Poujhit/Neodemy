@@ -76,12 +76,9 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(55),
                 ),
                 child: CircleAvatar(
-                  child: Hero(
-                    tag: 'profile',
-                    child: Image.network(
-                      userInfo.profileUrl,
-                      height: 55,
-                    ),
+                  child: Image.network(
+                    userInfo.profileUrl,
+                    height: 55,
                   ),
                   backgroundColor: Colors.transparent,
                   radius: 40,
@@ -98,10 +95,12 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
+            // ignore: deprecated_member_use
             RaisedButton(
               onPressed: () async {
                 //implmentation of reward system.
                 SharedPreferences pref = await SharedPreferences.getInstance();
+                print(pref.containsKey('rewards'));
                 if (pref.containsKey('rewards')) {
                   showGeneralDialog(
                       barrierDismissible: true,
@@ -143,7 +142,10 @@ class ProfileScreen extends StatelessWidget {
                                         margin: EdgeInsets.only(
                                           bottom: 5,
                                         ),
-                                        child: FlatButton(
+                                        child: TextButton(
+                                          style: TextButton.styleFrom(
+                                            primary: Colors.white,
+                                          ),
                                           onPressed: () async {
                                             await Share.share(
                                                 'I have earned ${pref.getInt('rewards')} Points by learning in Neodemy App.');
@@ -167,7 +169,10 @@ class ProfileScreen extends StatelessWidget {
                                         margin: EdgeInsets.only(
                                           bottom: 5,
                                         ),
-                                        child: FlatButton(
+                                        child: TextButton(
+                                          style: TextButton.styleFrom(
+                                            primary: Colors.white,
+                                          ),
                                           onPressed: () => Navigator.of(ctx).pop(),
                                           child: Text(
                                             'OK',
@@ -206,11 +211,12 @@ class ProfileScreen extends StatelessWidget {
                               Container(
                                 margin: const EdgeInsets.all(15),
                                 child: Text(
-                                  'Enroll in some courses to gain points.',
+                                  'Enroll in some courses and watch each video fully to gain points.',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                               SizedBox(
@@ -228,7 +234,10 @@ class ProfileScreen extends StatelessWidget {
                                         margin: EdgeInsets.only(
                                           bottom: 5,
                                         ),
-                                        child: FlatButton(
+                                        child: TextButton(
+                                          style: TextButton.styleFrom(
+                                            primary: Colors.white,
+                                          ),
                                           onPressed: () => Navigator.of(ctx).pop(),
                                           child: Text(
                                             'OK',
@@ -329,6 +338,7 @@ class ProfileScreen extends StatelessWidget {
               //alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.30,
               height: 40,
+              // ignore: deprecated_member_use
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(30.0),
