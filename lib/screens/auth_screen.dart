@@ -93,7 +93,7 @@ class AuthScreen extends StatelessWidget {
                 try {
                   SharedPreferences prefs = await SharedPreferences.getInstance();
                   prefs.setString('userId', 'done');
-                  await Provider.of<Auth>(context, listen: false).authenticate();
+                  await Provider.of<Auth>(context, listen: false).authenticate(context);
                 } catch (error) {
                   var errormessage = 'Authentication failed - $error';
                   print(error);

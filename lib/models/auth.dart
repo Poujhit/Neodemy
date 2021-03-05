@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -5,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:connectivity/connectivity.dart';
+import 'package:velocity_x/velocity_x.dart' show VxToast;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -34,7 +36,8 @@ class Auth with ChangeNotifier {
     return true;
   }
 
-  Future<void> doauthentication() async {
+  Future<void> doauthentication(BuildContext context) async {
+    var closeLoading = VxToast.showLoading(context, msg: 'Logging In...');
     GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
 
     if (googleSignInAccount != null) {
@@ -69,7 +72,7 @@ class Auth with ChangeNotifier {
               'name': user.displayName,
             }));
         //patch is for appending the data, put is for putting new data with custom name.
-
+        closeLoading();
       } catch (error) {
         Fluttertoast.showToast(msg: 'Server Problem. Please try again later.', toastLength: Toast.LENGTH_SHORT);
       }
@@ -77,13 +80,13 @@ class Auth with ChangeNotifier {
       Fluttertoast.showToast(msg: 'Login to use the app!', toastLength: Toast.LENGTH_SHORT);
   }
 
-  Future<void> authenticate() async {
+  Future<void> authenticate(BuildContext context) async {
     if (kIsWeb) {
-      doauthentication();
+      doauthentication(context);
     } else {
       var connectionCheck = await Connectivity().checkConnectivity();
       if (connectionCheck == ConnectivityResult.mobile || connectionCheck == ConnectivityResult.wifi) {
-        doauthentication();
+        doauthentication(context);
       } else
         Fluttertoast.showToast(msg: 'Turn on Mobile data or Wifi.', toastLength: Toast.LENGTH_SHORT);
     }
