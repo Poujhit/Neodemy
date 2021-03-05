@@ -37,6 +37,7 @@ dependencies:
   share: ^0.6.5+2
   velocity_x: ^1.4.1
   shared_preferences: ^0.5.12
+  youtube_player_iframe: ^1.2.0+2
   youtube_player_flutter: ^7.0.0+7
 
 dev_dependencies:

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -58,24 +59,21 @@ class _CourseContentScreenState extends State<CourseContentScreen> {
                 background: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Hero(
-                      tag: course.id,
-                      child: Image.network(
-                        course.imageUrl,
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
+                    Image.network(
+                      course.imageUrl,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
 
-                          return Center(
-                            child: CircularProgressIndicator(
-                              backgroundColor: Colors.blue,
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
-                                  : null,
-                            ),
-                          );
-                        },
-                      ),
+                        return Center(
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.blue,
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                                : null,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -286,8 +284,15 @@ class _CourseContentScreenState extends State<CourseContentScreen> {
                                         ),
                                         trailing: Icon(Icons.play_arrow_sharp),
                                         onTap: () {
-                                          if (p != null)
+                                          if (p != null) if (!kIsWeb)
                                             Navigator.of(context).pushNamed('/videoScreen', arguments: {
+                                              'videoTitle': eachCourseContent['title'],
+                                              'videoUrl': eachCourseContent['videoUrl'],
+                                              'minutes': eachCourseContent['minutes'],
+                                              'isWatched': eachCourseContent['isWatched'],
+                                            });
+                                          else
+                                            Navigator.of(context).pushNamed('/videoScreenWeb', arguments: {
                                               'videoTitle': eachCourseContent['title'],
                                               'videoUrl': eachCourseContent['videoUrl'],
                                               'minutes': eachCourseContent['minutes'],

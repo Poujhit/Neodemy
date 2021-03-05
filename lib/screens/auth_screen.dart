@@ -96,6 +96,7 @@ class AuthScreen extends StatelessWidget {
                   await Provider.of<Auth>(context, listen: false).authenticate();
                 } catch (error) {
                   var errormessage = 'Authentication failed - $error';
+                  print(error);
                   _showErrorDialog(errormessage, context);
                 }
               },

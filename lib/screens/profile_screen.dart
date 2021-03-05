@@ -76,9 +76,12 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(55),
                 ),
                 child: CircleAvatar(
-                  child: Image.network(
-                    userInfo.profileUrl,
-                    height: 55,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(40),
+                    child: Image.network(
+                      userInfo.profileUrl,
+                      height: 55,
+                    ),
                   ),
                   backgroundColor: Colors.transparent,
                   radius: 40,

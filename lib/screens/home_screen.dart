@@ -232,12 +232,15 @@ class _HomeUiState extends State<HomeUi> {
         elevation: 2,
         tooltip: 'Profile Page',
         backgroundColor: Colors.white,
-        child: Container(
-          width: 35,
-          height: 35,
-          child: Image.network(
-            userInfo.profileUrl,
-            fit: BoxFit.contain,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(40),
+          child: Container(
+            width: 35,
+            height: 35,
+            child: Image.network(
+              userInfo.profileUrl,
+              fit: BoxFit.contain,
+            ),
           ),
         ),
       ),

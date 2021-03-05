@@ -34,51 +34,59 @@ class Auth with ChangeNotifier {
     return true;
   }
 
-  Future<void> authenticate() async {
-    var connectionCheck = await Connectivity().checkConnectivity();
-    if (connectionCheck == ConnectivityResult.mobile || connectionCheck == ConnectivityResult.wifi) {
-      GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+  Future<void> doauthentication() async {
+    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
 
-      if (googleSignInAccount != null) {
-        GoogleSignInAuthentication gs = await googleSignInAccount.authentication;
+    if (googleSignInAccount != null) {
+      GoogleSignInAuthentication gs = await googleSignInAccount.authentication;
 
-        AuthCredential credential = GoogleAuthProvider.credential(
-          idToken: gs.idToken,
-          accessToken: gs.accessToken,
-        );
-        await _auth.signInWithCredential(credential);
+      AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: gs.idToken,
+        accessToken: gs.accessToken,
+      );
+      await _auth.signInWithCredential(credential);
 
-        User user = _auth.currentUser;
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        pref.setString('user', user.uid.toString());
-        userId = pref.getString('user');
+      User user = _auth.currentUser;
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.setString('user', user.uid.toString());
+      userId = pref.getString('user');
 
-        userid = user.email;
-        pref.setString('pu', user.photoURL.toString());
-        profileUrl = pref.getString('pu');
-        pref.setString('name', user.displayName);
-        userName = pref.getString('name');
-        token = user.uid;
-        notifyListeners();
+      userid = user.email;
+      pref.setString('pu', user.photoURL.toString());
+      profileUrl = pref.getString('pu');
+      pref.setString('name', user.displayName);
+      userName = pref.getString('name');
+      token = user.uid;
+      notifyListeners();
 
-        var url = 'https://neodemy-app.firebaseio.com/allusers/${user.uid}.json';
-        try {
-          await http.put(url,
-              body: json.encode({
-                'userEmail': user.email,
-                'userId': user.uid,
-                'profileUrl': user.photoURL,
-                'name': user.displayName,
-              }));
-          //patch is for appending the data, put is for putting new data with custom name.
+      var url = 'https://neodemy-app.firebaseio.com/allusers/${user.uid}.json';
+      try {
+        await http.put(url,
+            body: json.encode({
+              'userEmail': user.email,
+              'userId': user.uid,
+              'profileUrl': user.photoURL,
+              'name': user.displayName,
+            }));
+        //patch is for appending the data, put is for putting new data with custom name.
 
-        } catch (error) {
-          Fluttertoast.showToast(msg: 'Server Problem. Please try again later.', toastLength: Toast.LENGTH_SHORT);
-        }
-      } else
-        Fluttertoast.showToast(msg: 'Login to use the app!', toastLength: Toast.LENGTH_SHORT);
+      } catch (error) {
+        Fluttertoast.showToast(msg: 'Server Problem. Please try again later.', toastLength: Toast.LENGTH_SHORT);
+      }
     } else
-      Fluttertoast.showToast(msg: 'Turn on Mobile data or Wifi.', toastLength: Toast.LENGTH_SHORT);
+      Fluttertoast.showToast(msg: 'Login to use the app!', toastLength: Toast.LENGTH_SHORT);
+  }
+
+  Future<void> authenticate() async {
+    if (kIsWeb) {
+      doauthentication();
+    } else {
+      var connectionCheck = await Connectivity().checkConnectivity();
+      if (connectionCheck == ConnectivityResult.mobile || connectionCheck == ConnectivityResult.wifi) {
+        doauthentication();
+      } else
+        Fluttertoast.showToast(msg: 'Turn on Mobile data or Wifi.', toastLength: Toast.LENGTH_SHORT);
+    }
   }
 
   Future<void> signOut() async {

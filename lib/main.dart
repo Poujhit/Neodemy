@@ -1,3 +1,4 @@
+import 'package:elearn_app/screens/video_screen_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,27 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  Widget layoutChecker({Widget widget}) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 600 && constraints.maxHeight < 850) {
+          return widget;
+        } else
+          return Center(
+            child: Text(
+              'Desktop mode is not supported yet. Run the website in a mobile phone as this is a PWA.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: const Color(0xAA1D9398),
+                decoration: TextDecoration.none,
+                fontFamily: 'Exo',
+              ),
+            ),
+          );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -87,15 +109,18 @@ class MyApp extends StatelessWidget {
             ),
           ),
           home: auth.isAuth
-              ? HomeUi()
-              : FutureBuilder(
-                  future: auth.autoLogin(),
-                  builder: (ctx, snapshot) =>
-                      snapshot.connectionState == ConnectionState.waiting ? LoadingScreen() : AuthScreen(),
+              ? layoutChecker(widget: HomeUi())
+              : layoutChecker(
+                  widget: FutureBuilder(
+                    future: auth.autoLogin(),
+                    builder: (ctx, snapshot) =>
+                        snapshot.connectionState == ConnectionState.waiting ? LoadingScreen() : AuthScreen(),
+                  ),
                 ),
           routes: {
             '/coursecontent': (ctx) => CourseContentScreen(),
             '/videoScreen': (ctx) => VideoScreen(),
+            '/videoScreenWeb': (ctx) => VideoScreenWeb(),
           },
         );
       }),
