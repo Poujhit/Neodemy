@@ -19,6 +19,9 @@
 Just clone the repository and use the command flutter run
 ```
 
+## New Update
+PWA support for mobile format is added in the latest update. To use Neodemy Lite click [Here](https://neodemy-app.web.app).
+
 ## Author
 
 👤 **Poujhit**
