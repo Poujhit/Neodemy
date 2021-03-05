@@ -19,7 +19,7 @@ class _VideoScreenState extends State<VideoScreen> {
   // ignore: unused_field
   PlayerState _playerState;
   var _isInit = false;
-  final textcontroller = TextEditingController();
+  final notesText = TextEditingController();
 
   // ignore: unused_field
   YoutubeMetaData _videoMetaData;
@@ -78,7 +78,7 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   void dispose() {
     _controller.dispose();
-    textcontroller.dispose();
+    notesText.dispose();
 
     super.dispose();
   }
@@ -116,15 +116,17 @@ class _VideoScreenState extends State<VideoScreen> {
             onPressed: null,
           ),
         ],
-        onReady: () {
+        onReady: () async {
           _isPlayerReady = true;
+          SharedPreferences pref = await SharedPreferences.getInstance();
+          if (pref.containsKey('notesByUser${videoDetails['videoUrl']}'))
+            notesText.text = pref.getString('notesByUser${videoDetails['videoUrl']}');
         },
         onEnded: (data) async {
           videoDetails['isWatched'] = true;
           SharedPreferences pref = await SharedPreferences.getInstance();
           if (pref.containsKey('rewards')) {
             pref.setInt('rewards', pref.getInt('rewards') + 10);
-
             Provider.of<Courses>(context, listen: false).setRewards(pref.getInt('rewards'));
           } else {
             pref.setInt('rewards', 10);
@@ -134,8 +136,10 @@ class _VideoScreenState extends State<VideoScreen> {
           setState(() {
             _playerState = PlayerState.ended;
           });
-          Future.delayed(Duration(seconds: 10)).then((value) => Navigator.of(context).pop());
-          Fluttertoast.showToast(msg: 'Copy your notes, coz in 10 secs this page will be closed.');
+          pref.setString('notesByUser${videoDetails['videoUrl']}', notesText.text);
+
+          Future.delayed(Duration(seconds: 5)).then((_) => Navigator.of(context).pop());
+          Fluttertoast.showToast(msg: 'This Screen will be closed in 5 Secs. Your Notes Will be saved.');
         },
       ),
       builder: (ctx, player) {
@@ -186,11 +190,7 @@ class _VideoScreenState extends State<VideoScreen> {
                     color: Colors.grey[100],
                     child: TextField(
                       maxLines: 20,
-                      // decoration: const InputDecoration(
-                      //   contentPadding: const EdgeInsets.symmetric(vertical: 80.0),
-
-                      // ),
-                      controller: textcontroller,
+                      controller: notesText,
                     ),
                   ),
                 ),
