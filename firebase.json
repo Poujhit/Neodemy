@@ -2,7 +2,7 @@
   "hosting": {
     "headers": [
       {
-        "source": "**/*.@(jpg|jpeg|gif|png)",
+        "source": "**",
         "headers": [
           {
             "key": "Access-Control-Allow-Origin",
@@ -12,6 +12,10 @@
       }
     ],
     "public": "build/web",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
   }
 }
